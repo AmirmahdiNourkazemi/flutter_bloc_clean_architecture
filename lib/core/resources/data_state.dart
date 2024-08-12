@@ -12,4 +12,4 @@ class DataSuccess<T> extends DataState<T> {
 
 class DataError<T> extends DataState<T> {
   const DataError(String error) : super(null, error);
-}
+} 

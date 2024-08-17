@@ -1,15 +1,15 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/capital_info.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/car.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/coat_of_arms.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/currencies.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/demonyms.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/flags.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/idd.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/languages.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/maps.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/name.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_countries/models/countries_model/translations.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/capital_info.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/car.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/coat_of_arms.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/currencies.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/demonyms.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/flags.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/idd.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/languages.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/maps.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/name.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/models/countries_model/translations.dart';
 
 class CountriesModelEntity extends Equatable {
   final Name? name;

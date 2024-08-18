@@ -9,18 +9,18 @@ class CountryRepositoryImpl extends CountryRepository {
   ApiProvider apiProvider;
   CountryRepositoryImpl(this.apiProvider);
   @override
-  Future<DataState<CountriesModelEntity>> getCountries() async {
+  Future<DataState<List<CountriesModelEntity>>> getCountries() async {
     try {
       Response response = await apiProvider.getCountryList();
       if (response.statusCode == 200) {
          List<dynamic> data = response.data as List<dynamic>;
       List<CountriesModelEntity> countries = data.map((json) => CountriesModel.fromJson(json as Map<String, dynamic>)).toList();
-      return DataSuccess(countries.first);
+      return DataSuccess(countries);
       } else {
         return DataError('Something went wrong'); 
       }
     } catch (e) {
-      print(Exception(e.toString()));
+      // print(Exception(e.toString()));
       return DataError(e.toString());
     }
   }

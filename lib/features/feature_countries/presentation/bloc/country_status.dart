@@ -9,7 +9,7 @@ abstract class CountryStatus {}
 class CountryLoading extends CountryStatus {}
  
  class CountryCompeleted extends CountryStatus {
-  final CountriesModelEntity country;
+  final List<CountriesModelEntity> country;
   CountryCompeleted(this.country);
  }
 

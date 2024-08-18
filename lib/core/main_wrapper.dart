@@ -23,7 +23,9 @@ class _MainWrapperState extends State<MainWrapper> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: BlocBuilder<HomeBloc, HomeState>(
+        title:Text('Countries'),
+      ),
+      body:  BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
            if (state.countryStatus is CountryLoading) {
              return const Center(
@@ -31,7 +33,7 @@ class _MainWrapperState extends State<MainWrapper> {
              );
            }   if (state.countryStatus is CountryCompeleted) {
              return const Center(
-               child:Text('compeleted'),
+               child:Text("compeleted"),
              );
            }   if (state.countryStatus is CountryError) {
              return const Center(
@@ -41,7 +43,7 @@ class _MainWrapperState extends State<MainWrapper> {
            return Container();
           },
         ),
-      ),
     );
+    
   }
 }

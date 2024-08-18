@@ -15,7 +15,7 @@ import 'translations.dart';
 class CountriesModel extends CountriesModelEntity {
   CountriesModel({
     Name? name,
-    List<String>? tld,
+    List<dynamic>? tld,
     String? cca2,
     String? ccn3,
     String? cca3,
@@ -24,21 +24,21 @@ class CountriesModel extends CountriesModelEntity {
     bool? unMember,
     Currencies? currencies,
     Idd? idd,
-    List<String>? capital,
-    List<String>? altSpellings,
+    List<dynamic>? capital,
+    List<dynamic>? altSpellings,
     String? region,
     Languages? languages,
     Translations? translations,
-    List<num>? latlng,
+    List<dynamic>? latlng,
     bool? landlocked,
-    int? area,
+    num? area,
     Demonyms? demonyms,
     String? flag,
     Maps? maps,
-    int? population,
+    num? population,
     Car? car,
-    List<String>? timezones,
-    List<String>? continents,
+    List<dynamic>? timezones,
+    List<dynamic>? continents,
     Flags? flags,
     CoatOfArms? coatOfArms,
     String? startOfWeek,
@@ -80,7 +80,7 @@ class CountriesModel extends CountriesModelEntity {
       name: json['name'] == null
           ? null
           : Name.fromJson(json['name'] as Map<String, dynamic>),
-      tld: json['tld'] as List<String>?,
+      tld: json['tld'] as List<dynamic>?,
       cca2: json['cca2'] as String?,
       ccn3: json['ccn3'] as String?,
       cca3: json['cca3'] as String?,
@@ -93,8 +93,8 @@ class CountriesModel extends CountriesModelEntity {
       idd: json['idd'] == null
           ? null
           : Idd.fromJson(json['idd'] as Map<String, dynamic>),
-      capital: json['capital'] as List<String>?,
-      altSpellings: json['altSpellings'] as List<String>?,
+      capital: json['capital'] as List<dynamic>?,
+      altSpellings: json['altSpellings'] as List<dynamic>?,
       region: json['region'] as String?,
       languages: json['languages'] == null
           ? null
@@ -102,9 +102,9 @@ class CountriesModel extends CountriesModelEntity {
       translations: json['translations'] == null
           ? null
           : Translations.fromJson(json['translations'] as Map<String, dynamic>),
-      latlng: json['latlng'] as List<num>?,
+      latlng: json['latlng'] as List<dynamic>?,
       landlocked: json['landlocked'] as bool?,
-      area: json['area'] as int?,
+      area: json['area'] as num?,
       demonyms: json['demonyms'] == null
           ? null
           : Demonyms.fromJson(json['demonyms'] as Map<String, dynamic>),
@@ -112,18 +112,18 @@ class CountriesModel extends CountriesModelEntity {
       maps: json['maps'] == null
           ? null
           : Maps.fromJson(json['maps'] as Map<String, dynamic>),
-      population: json['population'] as int?,
+      population: json['population'] as num?,
       car: json['car'] == null
           ? null
           : Car.fromJson(json['car'] as Map<String, dynamic>),
-      timezones: json['timezones'] as List<String>?,
-      continents: json['continents'] as List<String>?,
+      timezones: json['timezones'] as List<dynamic>?,
+      continents: json['continents'] as List<dynamic>?,
       flags: json['flags'] == null
           ? null
           : Flags.fromJson(json['flags'] as Map<String, dynamic>),
-      coatOfArms: json['coatOfArms'] == null
-          ? null
-          : CoatOfArms.fromJson(json['coatOfArms'] as Map<String, dynamic>),
+      // coatOfArms: json['coatOfArms'] == null
+      //     ? null
+      //     : CoatOfArms.fromJson(json['coatOfArms'] as Map<String, dynamic>),
       startOfWeek: json['startOfWeek'] as String?,
       capitalInfo: json['capitalInfo'] == null
           ? null

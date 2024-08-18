@@ -13,7 +13,7 @@ import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/
 
 class CountriesModelEntity extends Equatable {
   final Name? name;
-  final List<String>? tld;
+  final List<dynamic>? tld;
   final String? cca2;
   final String? ccn3;
   final String? cca3;
@@ -22,21 +22,21 @@ class CountriesModelEntity extends Equatable {
   final bool? unMember;
   final Currencies? currencies;
   final Idd? idd;
-  final List<String>? capital;
-  final List<String>? altSpellings;
+  final List<dynamic>? capital;
+  final List<dynamic>? altSpellings;
   final String? region;
   final Languages? languages;
   final Translations? translations;
-  final List<num>? latlng;
+  final List<dynamic>? latlng;
   final bool? landlocked;
-  final int? area;
+  final num? area;
   final Demonyms? demonyms;
   final String? flag;
   final Maps? maps;
-  final int? population;
+  final num? population;
   final Car? car;
-  final List<String>? timezones;
-  final List<String>? continents;
+  final List<dynamic>? timezones;
+  final List<dynamic>? continents;
   final Flags? flags;
   final CoatOfArms? coatOfArms;
   final String? startOfWeek;

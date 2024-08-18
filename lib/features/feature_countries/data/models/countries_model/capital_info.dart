@@ -1,10 +1,10 @@
 class CapitalInfo {
-  List<double>? latlng;
+  List<dynamic>? latlng;
 
   CapitalInfo({this.latlng});
 
   factory CapitalInfo.fromJson(Map<String, dynamic> json) => CapitalInfo(
-        latlng: json['latlng'] as List<double>?,
+        latlng: json['latlng'] as List<dynamic>?,
       );
 
   Map<String, dynamic> toJson() => {

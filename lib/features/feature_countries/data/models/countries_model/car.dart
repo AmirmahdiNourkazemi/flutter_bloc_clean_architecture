@@ -1,11 +1,11 @@
 class Car {
-  List<String>? signs;
+  List<dynamic>? signs;
   String? side;
 
   Car({this.signs, this.side});
 
   factory Car.fromJson(Map<String, dynamic> json) => Car(
-        signs: json['signs'] as List<String>?,
+        signs: json['signs'] as List<dynamic>?,
         side: json['side'] as String?,
       );
 

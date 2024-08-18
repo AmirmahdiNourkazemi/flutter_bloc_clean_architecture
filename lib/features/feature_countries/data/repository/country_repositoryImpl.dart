@@ -13,14 +13,15 @@ class CountryRepositoryImpl extends CountryRepository {
     try {
       Response response = await apiProvider.getCountryList();
       if (response.statusCode == 200) {
-        CountriesModelEntity countryModelEntity =
-            CountriesModel.fromJson(response.data);
-        return DataSuccess(countryModelEntity);
+         List<dynamic> data = response.data as List<dynamic>;
+      List<CountriesModelEntity> countries = data.map((json) => CountriesModel.fromJson(json as Map<String, dynamic>)).toList();
+      return DataSuccess(countries.first);
       } else {
         return DataError('Something went wrong'); 
       }
     } catch (e) {
-      return DataError('network error');
+      print(Exception(e.toString()));
+      return DataError(e.toString());
     }
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_clean_architecture/locator/locator.dart';
 
 import 'core/main_wrapper.dart';
 
-void main() {
+void main() async{
+  await setup();
   runApp(const MyApp());
 }
 

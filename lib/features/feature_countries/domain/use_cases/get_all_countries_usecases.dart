@@ -5,7 +5,7 @@ import 'package:flutter_bloc_clean_architecture/features/feature_countries/domai
 
 class GetAllCountriesUseCases implements UseCase<DataState<CountriesModelEntity>,String>{
  final CountryRepository countryRepository;
-  GetAllCountriesUseCases({required this.countryRepository});
+  GetAllCountriesUseCases( this.countryRepository);
 
  Future<DataState<CountriesModelEntity>> call(String param){
     return countryRepository.getCountries();

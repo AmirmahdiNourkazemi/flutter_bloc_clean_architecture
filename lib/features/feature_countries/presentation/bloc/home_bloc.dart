@@ -8,18 +8,18 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetAllCountriesUseCases getAllCountriesUseCases;
-  HomeBloc(this.getAllCountriesUseCases) : super(HomeState(countryStatus: CountryLoading())) {
-    on<CountryEvent>((event, emit) async{
-     emit(state.copyWith(countryStatus: CountryLoading()));
-     DataState dataState = await getAllCountriesUseCases("");
-   
-if (dataState is DataSuccess) {
-  emit(state.copyWith(countryStatus: CountryCompeleted(dataState.data)));
-}
-if (dataState is DataError) {
-  emit(state.copyWith(countryStatus: CountryError(dataState.error!)));
-}
+  HomeBloc(this.getAllCountriesUseCases)
+      : super(HomeState(countryStatus: CountryLoading())) {
+    on<CountryEvent>((event, emit) async {
+      emit(state.copyWith(countryStatus: CountryLoading()));
+      DataState dataState = await getAllCountriesUseCases("");
 
+      if (dataState is DataSuccess) {
+        emit(state.copyWith(countryStatus: CountryCompeleted(dataState.data)));
+      }
+      if (dataState is DataError) {
+        emit(state.copyWith(countryStatus: CountryError(dataState.error!)));
+      }
     });
   }
 }

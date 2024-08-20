@@ -1,14 +1,20 @@
 part of 'home_bloc.dart';
 
-class HomeState {
+class HomeState extends Equatable{
 CountryStatus countryStatus;
-HomeState({required this.countryStatus});
+SearchStatus searchStatus;
+HomeState({required this.countryStatus,required this.searchStatus});
 
 
-HomeState copyWith({CountryStatus? countryStatus}) {
+HomeState copyWith({CountryStatus? countryStatus , SearchStatus? searchStatus}) {
   return HomeState(
     countryStatus: countryStatus ?? this.countryStatus
+    ,searchStatus: searchStatus ?? this.searchStatus
   );
   }
+  
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }
 

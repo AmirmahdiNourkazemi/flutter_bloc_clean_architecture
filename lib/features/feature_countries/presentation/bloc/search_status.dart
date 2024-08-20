@@ -4,27 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/domain/entities/countries_entity.dart';
 
 @immutable
-abstract class CountryStatus extends Equatable{}
+abstract class SearchStatus extends Equatable{}
 
 
-class CountryLoading extends CountryStatus {
+class SearchLoading extends SearchStatus {
   @override
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
  
- class CountryCompeleted extends CountryStatus {
+ class SearchCompeleted extends SearchStatus {
   final List<CountriesModelEntity> country;
-  CountryCompeleted(this.country);
+  SearchCompeleted(this.country);
   
   @override
   // TODO: implement props
   List<Object?> get props => [country];
  }
 
- class CountryError extends CountryStatus {
+ class SearchError extends SearchStatus {
   final String message;
-  CountryError(this.message);
+  SearchError(this.message);
   
   @override
   // TODO: implement props

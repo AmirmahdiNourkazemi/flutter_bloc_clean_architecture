@@ -36,7 +36,7 @@ class CountryRepositoryImpl extends CountryRepository {
         return DataError('Something went wrong'); 
       }
     } catch (e) {
-      // print(Exception(e.toString()));
+      print(Exception(e.toString()));
       return DataError(e.toString());
     }
   }

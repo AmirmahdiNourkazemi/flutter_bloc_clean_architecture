@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   ScrollController scrollController = ScrollController();
+  TextEditingController textEditingController = TextEditingController();
   void initState() {
     // TODO: implement initState
 
@@ -41,18 +42,29 @@ class _HomeScreenState extends State<HomeScreen> {
             final List<CountriesModelEntity> model = compeleted.country;
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                controller: scrollController,
-                shrinkWrap: true,
-                itemCount: model.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    borderOnForeground: true,
-                    key: Key(model[index].idd!.root.toString()),
-                    child: Text(model[index].name!.common.toString()),
-                    shape: RoundedRectangleBorder(),
-                  );
-                },
+              child: Column(
+                children: [
+                  TextField(controller:textEditingController ,decoration: InputDecoration(labelText: 'search'),onEditingComplete: () {
+                    BlocProvider.of<HomeBloc>(context).add(CountrySearchEvent( textEditingController.text));
+                  },onChanged: (value) {
+                    if(value.isEmpty){
+                      BlocProvider.of<HomeBloc>(context).add(CountryEvent());
+                    }
+                  },),
+                  ListView.builder(
+                    controller: scrollController,
+                    shrinkWrap: true,
+                    itemCount: model.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        borderOnForeground: true,
+                        key: Key(model[index].idd!.root.toString()),
+                        child: Text(model[index].name!.common.toString()),
+                        shape: RoundedRectangleBorder(),
+                      );
+                    },
+                  ),
+                ],
               ),
             );
           }
@@ -60,8 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
           return Container();
         }, listener: (context, state) {
           if (state.countryStatus is CountryError) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("error"),
+            CountryError error = state.countryStatus as CountryError;
+              
+            ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+              content: Text(error.message),
               behavior: SnackBarBehavior.floating, // Add this line
             ));
           }

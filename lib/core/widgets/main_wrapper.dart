@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/bloc/country_status.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/bloc/home_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/screens/home_screen.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/screens/search_screen.dart';
 
 class MainWrapper extends StatefulWidget {
   const MainWrapper({super.key});
@@ -16,18 +17,23 @@ class _MainWrapperState extends State<MainWrapper> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
     const HomeScreen(),
-    Container(
-      child: const Text('text'),
-    ),
-    Container(
-      child: const Text('text'),
-    ),
+    const SearchScreen(),
+    // Container(
+    //   child: Center(child: const Text('text')),
+    // ),
   ];
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   
+  }
+  @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      extendBody: true,
-      extendBodyBehindAppBar: true,
+      // extendBody: true,
+      // extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.blue,
@@ -45,6 +51,7 @@ class _MainWrapperState extends State<MainWrapper> {
         currentIndex: _currentIndex,
         onTapChange: (index) {
           setState(() {
+            print(_currentIndex);
             _currentIndex = index;
           });
         },

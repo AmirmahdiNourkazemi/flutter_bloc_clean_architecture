@@ -15,10 +15,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetAllCountriesUseCases getAllCountriesUseCases;
   final GetSearchCountriesUseCases getSearchCountriesUseCases;
   HomeBloc(this.getAllCountriesUseCases,this.getSearchCountriesUseCases)
-      : super(HomeState(countryStatus: CountryLoading(),searchStatus: SearchLoading())) {
+      : super(HomeState(countryStatus: CountryLoading(),searchStatus: SearchInitLoading())) {
     on<CountryEvent>((event, emit) async {
       emit(state.copyWith(countryStatus: CountryLoading()));
-      DataState dataState = await getAllCountriesUseCases(NoParams());
+      DataState dataState = await getAllCountriesUseCases("");
 
       if (dataState is DataSuccess) {
         emit(state.copyWith(countryStatus: CountryCompeleted(dataState.data)));
@@ -28,6 +28,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
     });
     on<CountrySearchEvent>((event, emit) async {
+      emit(state.copyWith(countryStatus: CountryLoading()));
+      DataState dataState = await getSearchCountriesUseCases(event.name);
+
+      if (dataState is DataSuccess) {
+        emit(state.copyWith(countryStatus: CountryCompeleted(dataState.data)));
+      }
+      if (dataState is DataError) {
+        emit(state.copyWith(countryStatus: CountryError(dataState.error!)));
+      }
+    });
+     on<CountrySearchHomeEvent>((event, emit) async {
       emit(state.copyWith(searchStatus: SearchLoading()));
       DataState dataState = await getSearchCountriesUseCases(event.name);
 

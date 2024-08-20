@@ -10,7 +10,7 @@ abstract class CountryStatus extends Equatable{}
 class CountryLoading extends CountryStatus {
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
  
  class CountryCompeleted extends CountryStatus {

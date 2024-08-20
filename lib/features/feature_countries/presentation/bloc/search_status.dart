@@ -10,9 +10,15 @@ abstract class SearchStatus extends Equatable{}
 class SearchLoading extends SearchStatus {
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
  
+class SearchInitLoading extends SearchStatus {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
  class SearchCompeleted extends SearchStatus {
   final List<CountriesModelEntity> country;
   SearchCompeleted(this.country);

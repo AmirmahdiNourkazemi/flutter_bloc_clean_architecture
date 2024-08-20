@@ -30,7 +30,15 @@ class _HomeScreenState extends State<HomeScreen> {
       controller: scrollController,
       scrollDirection: Axis.vertical,
       children: [
-        BlocConsumer<HomeBloc, HomeState>(builder: (context, state) {
+        BlocConsumer<HomeBloc, HomeState>(
+          buildWhen: (previous, current) {
+            if(previous.countryStatus == current.countryStatus){
+              return false;
+            }else {
+              return true;
+            }
+          },
+          builder: (context, state) {
           if (state.countryStatus is CountryLoading) {
             return const Center(
               child: CircularProgressIndicator(),

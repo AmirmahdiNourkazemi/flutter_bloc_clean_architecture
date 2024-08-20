@@ -12,4 +12,11 @@ class ApiProvider {
     print(response.data);
     return response;
   }
+    Future<dynamic> getSearchNameCountry(String name) async {
+    var response = await _dio.get(
+      '${Constants.BASE_URL}name/$name',
+    );
+    print(response.data);
+    return response;
+  }
 }

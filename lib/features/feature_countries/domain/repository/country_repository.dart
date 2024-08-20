@@ -3,4 +3,5 @@ import 'package:flutter_bloc_clean_architecture/features/feature_countries/domai
 
 abstract class CountryRepository {
   Future<DataState<List<CountriesModelEntity>>> getCountries();
+  Future<DataState<List<CountriesModelEntity>>> getSearchNameCountries(String name);
 }

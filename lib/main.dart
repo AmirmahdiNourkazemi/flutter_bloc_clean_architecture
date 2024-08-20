@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/bloc/home_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/locator/locator.dart';
 
-import 'core/main_wrapper.dart';
+import 'core/widgets/main_wrapper.dart';
 
 void main() async {
   await setup();

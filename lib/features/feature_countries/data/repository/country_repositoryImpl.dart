@@ -24,4 +24,20 @@ class CountryRepositoryImpl extends CountryRepository {
       return DataError(e.toString());
     }
   }
+
+    Future<DataState<List<CountriesModelEntity>>> getSearchNameCountries(String name) async {
+    try {
+      Response response = await apiProvider.getSearchNameCountry(name);
+      if (response.statusCode == 200) {
+         List<dynamic> data = response.data as List<dynamic>;
+      List<CountriesModelEntity> countries = data.map((json) => CountriesModel.fromJson(json as Map<String, dynamic>)).toList();
+      return DataSuccess(countries);
+      } else {
+        return DataError('Something went wrong'); 
+      }
+    } catch (e) {
+      // print(Exception(e.toString()));
+      return DataError(e.toString());
+    }
+  }
 }

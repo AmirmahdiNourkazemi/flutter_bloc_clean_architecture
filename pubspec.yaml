@@ -40,6 +40,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   bloc: ^8.1.4
   get_it: ^7.7.0
+  animated_botton_navigation: ^0.0.6
 
 dev_dependencies:
   flutter_test:

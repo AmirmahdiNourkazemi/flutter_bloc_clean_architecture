@@ -10,4 +10,5 @@ class GetAllCountriesUseCases implements UseCase<DataState<List<CountriesModelEn
  Future<DataState<List<CountriesModelEntity>>> call(String param){
     return countryRepository.getCountries();
   }
+
 }

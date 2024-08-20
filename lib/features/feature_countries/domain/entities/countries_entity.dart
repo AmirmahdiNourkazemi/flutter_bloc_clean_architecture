@@ -42,7 +42,8 @@ class CountriesModelEntity extends Equatable {
   final String? startOfWeek;
   final CapitalInfo? capitalInfo;
 
-  const CountriesModelEntity({this.name,
+  const CountriesModelEntity({
+    this.name,
     this.tld,
     this.cca2,
     this.ccn3,
@@ -70,11 +71,40 @@ class CountriesModelEntity extends Equatable {
     this.flags,
     this.coatOfArms,
     this.startOfWeek,
-    this.capitalInfo,}
-    
-  );
+    this.capitalInfo,
+  });
 
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        name,
+        tld,
+        cca2,
+        ccn3,
+        cca3,
+        independent,
+        status,
+        unMember,
+        currencies,
+        idd,
+        capital,
+        altSpellings,
+        region,
+        languages,
+        translations,
+        latlng,
+        landlocked,
+        area,
+        demonyms,
+        flag,
+        maps,
+        population,
+        car,
+        timezones,
+        continents,
+        flags,
+        coatOfArms,
+        startOfWeek,
+        capitalInfo
+      ];
 }

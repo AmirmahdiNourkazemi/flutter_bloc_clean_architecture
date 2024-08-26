@@ -1,3 +1,4 @@
+import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/data/data_source/local/database.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/data_source/remote/api_provider.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/data/repository/country_repositoryImpl.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/domain/repository/country_repository.dart';
@@ -8,8 +9,11 @@ import 'package:get_it/get_it.dart';
 
 GetIt locator = GetIt.instance;
 
-setup(){
+setup() async {
   locator.registerSingleton<ApiProvider>(ApiProvider());
+
+  final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+  locator.registerSingleton<AppDatabase>(database);
 
   ///repositories 
   locator.registerSingleton<CountryRepository>(CountryRepositoryImpl(locator()));

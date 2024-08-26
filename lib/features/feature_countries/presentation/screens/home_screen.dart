@@ -16,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   ScrollController scrollController = ScrollController();
   TextEditingController textEditingController = TextEditingController();
+  bool visible = false;
   void initState() {
     // TODO: implement initState
 
@@ -30,18 +31,26 @@ class _HomeScreenState extends State<HomeScreen> {
       controller: scrollController,
       scrollDirection: Axis.vertical,
       children: [
-        BlocConsumer<HomeBloc, HomeState>(
-          buildWhen: (previous, current) {
-            if(previous.countryStatus == current.countryStatus){
-              return false;
-            }else {
-              return true;
-            }
-          },
-          builder: (context, state) {
+        BlocConsumer<HomeBloc, HomeState>(buildWhen: (previous, current) {
+          if (previous.countryStatus == current.countryStatus) {
+            return false;
+          } else {
+            return true;
+          }
+        }, builder: (context, state) {
           if (state.countryStatus is CountryLoading) {
             return const Center(
               child: CircularProgressIndicator(),
+            );
+          }
+          if (state.countryStatus is CountryError) {
+            return Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<HomeBloc>(context).add(CountryEvent());
+                },
+                child: Text('retry'),
+              ),
             );
           }
           if (state.countryStatus is CountryCompeleted) {
@@ -52,23 +61,82 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  TextField(controller:textEditingController ,decoration: InputDecoration(labelText: 'search'),onEditingComplete: () {
-                    BlocProvider.of<HomeBloc>(context).add(CountrySearchEvent( textEditingController.text));
-                  },onChanged: (value) {
-                    if(value.isEmpty){
-                      BlocProvider.of<HomeBloc>(context).add(CountryEvent());
-                    }
-                  },),
+                  TextField(
+                    controller: textEditingController,
+                    decoration: InputDecoration(labelText: 'search'),
+                    onEditingComplete: () {
+                      BlocProvider.of<HomeBloc>(context)
+                          .add(CountrySearchEvent(textEditingController.text));
+                    },
+                    onChanged: (value) {
+                      if (value.isEmpty) {
+                        setState(() {
+                          visible = false;
+                        });
+                        BlocProvider.of<HomeBloc>(context).add(CountryEvent());
+                      }
+                    },
+                  ),
                   ListView.builder(
                     controller: scrollController,
                     shrinkWrap: true,
                     itemCount: model.length,
                     itemBuilder: (context, index) {
-                      return Card(
-                        borderOnForeground: true,
-                        key: Key(model[index].idd!.root.toString()),
-                        child: Text(model[index].name!.common.toString()),
-                        shape: RoundedRectangleBorder(),
+                      return ListTile(
+                        onTap: () {
+                          textEditingController.text =
+                              model[index].name!.official.toString();
+                          BlocProvider.of<HomeBloc>(context).add(
+                              CountrySearchEvent(textEditingController.text));
+                          setState(() {
+                            visible = true;
+                          });
+                        },
+                        leading: Image.network(
+                          model[index].flags!.png!,
+                          width: 30,
+                        ),
+                        title: Text(model[index].name!.common.toString()),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(model[index].name!.official.toString()),
+                            if (visible &&
+                                model[index].name!.nativeName != null) ...{
+                              if (model[index].name!.nativeName!.eng !=
+                                  null) ...{
+                                Text(model[index]
+                                    .name!
+                                    .nativeName!
+                                    .eng!
+                                    .common
+                                    .toString()),
+                              },
+                              Text(model[index].area.toString()),
+                              // Text(),
+                              Text(model[index].car!.side.toString())
+                            }
+                          ],
+                        ),
+                        trailing: visible
+                            ? Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.check),
+                                  IconButton(
+                                      onPressed: () {
+                                        BlocProvider.of<HomeBloc>(context)
+                                            .add(CountryEvent());
+                                        setState(() {
+                                          textEditingController.clear();
+                                          visible = false;
+                                        });
+                                      },
+                                      icon: Icon(Icons.cancel))
+                                ],
+                              )
+                            : null,
                       );
                     },
                   ),
@@ -81,8 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
         }, listener: (context, state) {
           if (state.countryStatus is CountryError) {
             CountryError error = state.countryStatus as CountryError;
-              
-            ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(error.message),
               behavior: SnackBarBehavior.floating, // Add this line
             ));

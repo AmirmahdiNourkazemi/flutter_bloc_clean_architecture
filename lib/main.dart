@@ -6,6 +6,7 @@ import 'package:flutter_bloc_clean_architecture/locator/locator.dart';
 import 'core/widgets/main_wrapper.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await setup();
   runApp(
     MaterialApp(

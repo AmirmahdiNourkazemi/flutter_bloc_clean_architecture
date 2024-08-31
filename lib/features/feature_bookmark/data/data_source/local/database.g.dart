@@ -142,7 +142,7 @@ class _$CountryDao extends CountryDao {
 
   @override
   Future<Country?> findCountryByName(String name) async {
-    return _queryAdapter.query('Select * from Country where name like ?1',
+    return _queryAdapter.query('SELECT * From Country WHERE name = ?1',
         mapper: (Map<String, Object?> row) => Country(row['name'] as String,
             row['flag'] as String, row['code'] as String),
         arguments: [name]);
@@ -150,7 +150,7 @@ class _$CountryDao extends CountryDao {
 
   @override
   Future<void> deleteCountryByName(String name) async {
-    await _queryAdapter.queryNoReturn('DELETE FROM Country where name like ?1',
+    await _queryAdapter.queryNoReturn('DELETE FROM Country WHERE name = ?1',
         arguments: [name]);
   }
 

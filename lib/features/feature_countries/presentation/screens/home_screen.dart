@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/core/usecase/use_case.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/presentation/bloc/bookmark_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/presentation/bloc/save_country_status.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/domain/entities/countries_entity.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/bloc/country_status.dart';
 
@@ -120,21 +123,48 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         trailing: visible
-                            ? Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(Icons.check),
-                                  IconButton(
+                            ? BlocListener<BookmarkBloc, BookmarkState>(
+                                listener: (context, state) {
+                                  if (state.saveCountryStatus
+                                      is SaveCountrySuccess) {
+                                    SaveCountrySuccess success =
+                                        state.saveCountryStatus
+                                            as SaveCountrySuccess;
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text('Country Saved'),
+                                    ));
+                                  }
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
                                       onPressed: () {
-                                        BlocProvider.of<HomeBloc>(context)
-                                            .add(CountryEvent());
-                                        setState(() {
-                                          textEditingController.clear();
-                                          visible = false;
-                                        });
+                                        InsertCountry insertCountry =
+                                            InsertCountry(
+                                          model[index].name!.common.toString(),
+                                          model[index].flags!.png.toString(),
+                                          model[index].cca2.toString(),
+                                        );
+                                        BlocProvider.of<BookmarkBloc>(context)
+                                            .add(SaveCountryEvent(
+                                                insertCountry));
                                       },
-                                      icon: Icon(Icons.cancel))
-                                ],
+                                      icon: Icon(Icons.check),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          BlocProvider.of<HomeBloc>(context)
+                                              .add(CountryEvent());
+                                          setState(() {
+                                            textEditingController.clear();
+                                            visible = false;
+                                          });
+                                        },
+                                        icon: Icon(Icons.cancel))
+                                  ],
+                                ),
                               )
                             : null,
                       );

@@ -1,14 +1,14 @@
 import 'package:flutter_bloc_clean_architecture/core/usecase/use_case.dart';
-import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/domain/repository/country_repository.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/domain/repository/bookmark_repository.dart';
 
 import '../../../../core/resources/data_state.dart';
 import '../../domain/entities/country_entity.dart';
 import '../data_source/local/country_dao.dart';
 
-class CountryRepositoryImpl extends CountryRepository {
+class BookmarkRepositoryImpl extends BookmarkRepository {
   final CountryDao countryDao;
 
-  CountryRepositoryImpl(this.countryDao);
+  BookmarkRepositoryImpl(this.countryDao);
 
   @override
   Future<DataState<List<Country>>> getCountriesFromDB() async {
@@ -34,6 +34,7 @@ class CountryRepositoryImpl extends CountryRepository {
   Future<DataState<Country?>> findCountryByName(String name) async {
     try {
       Country? country = await countryDao.findCountryByName(name);
+      print(country);
       return DataSuccess(country);
     } catch (e) {
       return DataError(e.toString());

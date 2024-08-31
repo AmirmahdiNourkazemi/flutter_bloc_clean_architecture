@@ -3,7 +3,7 @@ import 'package:flutter_bloc_clean_architecture/core/usecase/use_case.dart';
 
 import '../entities/country_entity.dart';
 
-abstract class CountryRepository {
+abstract class BookmarkRepository {
   Future<DataState<List<Country>>> getCountriesFromDB();
   Future<DataState<Country?>> findCountryByName(String name);
   Future<DataState<Country>> insertCountry(InsertCountry insertCountry);

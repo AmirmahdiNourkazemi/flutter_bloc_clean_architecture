@@ -15,7 +15,7 @@ class GetCountryLoading extends GetCountryStatus {
 }
 
 class GetCountrySuccess extends GetCountryStatus {
-  final Country country;
+  final List<Country> country;
   GetCountrySuccess(this.country);
   @override
   List<Object> get props => [country];

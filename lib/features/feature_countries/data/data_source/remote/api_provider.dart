@@ -17,11 +17,10 @@ class ApiProvider {
     // return response;
   }
 
-  Future<dynamic> getSearchNameCountry(String name) async {
-    var response = await _dio.get(
-      '${Constants.BASE_URL}name/$name',
-    );
-    print(response.data);
-    return response;
+  Future<Response> getSearchNameCountry(String name) async {
+    final res =
+        await locator<ApiProviderImp>().get('${Constants.BASE_URL}name/$name');
+    print(res);
+    return res;
   }
 }

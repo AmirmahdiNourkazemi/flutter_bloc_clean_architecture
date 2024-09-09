@@ -35,7 +35,6 @@ class _BookMarkScreenState extends State<BookMarkScreen> {
                     .add(GetCountryByNameEvent(value));
                 print(value);
               } else {
-                print("empty");
                 BlocProvider.of<BookmarkBloc>(context)
                     .add(GetAllCountryEvent());
               }

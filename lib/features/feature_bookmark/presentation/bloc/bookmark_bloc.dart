@@ -35,36 +35,37 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
       }
     });
 
-on<GetAllCountryEvent>(
-  (event, emit) async {
-    emit(state.copyWith(getCountryStatus: GetCountryLoading()));
-    DataState dataState = await getAllCountriesDBUseCases(NoParams());
+    on<GetAllCountryEvent>(
+      (event, emit) async {
+        emit(state.copyWith(getCountryStatus: GetCountryLoading()));
+        DataState dataState = await getAllCountriesDBUseCases(NoParams());
 
-    if (dataState is DataSuccess) {
-      emit(state.copyWith(
-          getCountryStatus: GetCountrySuccess(dataState.data),
-          getCountryByNameStatus: GetCountryByNameInitial())); // Reset the GetCountryByNameStatus to its initial state
-    } else if (dataState is DataError) {
-      emit(state.copyWith(getCountryStatus: GetCountryError()));
-    }
-  },
-);
+        if (dataState is DataSuccess) {
+          emit(state.copyWith(
+              getCountryStatus: GetCountrySuccess(dataState.data),
+              getCountryByNameStatus:
+                  GetCountryByNameInitial())); // Reset the GetCountryByNameStatus to its initial state
+        } else if (dataState is DataError) {
+          emit(state.copyWith(getCountryStatus: GetCountryError()));
+        }
+      },
+    );
 
-on<GetCountryByNameEvent>(
-  (event, emit) async {
-    emit(state.copyWith(getCountryByNameStatus: GetCountryByNameLoading()));
-    DataState dataState = await findCountryByName(event.countryName);
+    on<GetCountryByNameEvent>(
+      (event, emit) async {
+        emit(state.copyWith(getCountryByNameStatus: GetCountryByNameLoading()));
+        DataState dataState = await findCountryByName(event.countryName);
 
-    if (dataState is DataSuccess) {
-      emit(state.copyWith(
-          getCountryByNameStatus: GetCountryByNameSuccess(dataState.data),
-          getCountryStatus: GetCountryInitial())); // Reset the GetCountryStatus to its initial state
-    } else if (dataState is DataError) {
-      emit(state.copyWith(getCountryByNameStatus: GetCountryByNameError()));
-    }
-  },
-);
-
+        if (dataState is DataSuccess) {
+          emit(state.copyWith(
+              getCountryByNameStatus: GetCountryByNameSuccess(dataState.data),
+              getCountryStatus:
+                  GetCountryInitial())); // Reset the GetCountryStatus to its initial state
+        } else if (dataState is DataError) {
+          emit(state.copyWith(getCountryByNameStatus: GetCountryByNameError()));
+        }
+      },
+    );
 
     on<SaveCountryInitialEvent>(
       (event, emit) async {

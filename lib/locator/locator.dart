@@ -38,5 +38,5 @@ setup() async {
 
   /// bloc 
    locator.registerSingleton<HomeBloc>(HomeBloc(locator(),locator()));
-   locator.registerSingleton<BookmarkBloc>(BookmarkBloc(locator(),locator(),locator()));
+   locator.registerSingleton<BookmarkBloc>(BookmarkBloc(locator(),locator(),locator(),locator()));
 }

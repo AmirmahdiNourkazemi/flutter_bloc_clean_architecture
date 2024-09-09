@@ -5,9 +5,12 @@ import 'package:flutter_bloc_clean_architecture/core/usecase/use_case.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/domain/use_cases/find_country_db_usecase.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/domain/use_cases/get_all_countries_db_usecase.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/domain/use_cases/save_country_usecase.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/presentation/bloc/delete_country_status.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/presentation/bloc/get_country_by_name_status.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/presentation/bloc/get_country_status.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/presentation/bloc/save_country_status.dart';
+
+import '../../domain/use_cases/delete_country_db_usecase.dart';
 
 part 'bookmark_event.dart';
 part 'bookmark_state.dart';
@@ -16,12 +19,14 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
   GetAllCountriesDBUseCases getAllCountriesDBUseCases;
   SaveCountryUseCase saveCountryUseCase;
   FindCountryByName findCountryByName;
+  DeleteCountryByName deleteCountryByName;
   BookmarkBloc(this.getAllCountriesDBUseCases, this.saveCountryUseCase,
-      this.findCountryByName)
+      this.findCountryByName, this.deleteCountryByName)
       : super(BookmarkState(
             getCountryStatus: GetCountryLoading(),
             saveCountryStatus: SaveCountryInitial(),
-            getCountryByNameStatus: GetCountryByNameInitial())) {
+            getCountryByNameStatus: GetCountryByNameInitial(),
+            deleteCountryStatus: DeleteCountryInitial())) {
     on<SaveCountryEvent>((event, emit) async {
       emit(state.copyWith(saveCountryStatus: SaveCountryLoading()));
       DataState dataState = await saveCountryUseCase(event.country);
@@ -63,6 +68,24 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
                   GetCountryInitial())); // Reset the GetCountryStatus to its initial state
         } else if (dataState is DataError) {
           emit(state.copyWith(getCountryByNameStatus: GetCountryByNameError()));
+        }
+      },
+    );
+
+    on<DeleteCountryEvent>(
+      (event, emit) async {
+        emit(state.copyWith(deleteCountryStatus: DeleteCountryLoading()));
+
+        DataState dataState = await deleteCountryByName(event.countryName);
+
+        if (dataState is DataSuccess) {
+          emit(state.copyWith(
+              deleteCountryStatus: DeleteCountrySuccess(dataState.data)));
+          // emit(state.copyWith(
+          //   getCountryStatus: GetCountrySuccess(dataState.data),
+          // ));
+        } else if (dataState is DataError) {
+          emit(state.copyWith(deleteCountryStatus: DeleteCountryError()));
         }
       },
     );

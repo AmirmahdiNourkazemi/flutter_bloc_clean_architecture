@@ -62,6 +62,38 @@ class _BookMarkScreenState extends State<BookMarkScreen> {
 
                 if (data != null) {
                   return ListTile(
+                    trailing: IconButton(
+                        onPressed: () {
+                          final bookmarkBloc =
+                              BlocProvider.of<BookmarkBloc>(context);
+                          showDialog(
+                              context: context,
+                              builder: (_) {
+                                return AlertDialog(
+                                  title: const Text('Delete Country'),
+                                  content: const Text(
+                                      'Are you sure you want to delete this country?'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          bookmarkBloc.add(
+                                              DeleteCountryEvent(data.name));
+                                          Navigator.of(context).pop();
+                                          textEditingController.clear();
+                                          bookmarkBloc
+                                              .add(GetAllCountryEvent());
+                                        },
+                                        child: const Text('Yes')),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('No')),
+                                  ],
+                                );
+                              });
+                        },
+                        icon: const Icon(Icons.delete)),
                     leading: Image.network(
                       data.flag,
                       width: 30,
@@ -83,6 +115,11 @@ class _BookMarkScreenState extends State<BookMarkScreen> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return ListTile(
+                      onTap: () {
+                        textEditingController.text = data[index].name;
+                        BlocProvider.of<BookmarkBloc>(context)
+                            .add(GetCountryByNameEvent(data[index].name));
+                      },
                       leading: Image.network(
                         data[index].flag,
                         width: 30,

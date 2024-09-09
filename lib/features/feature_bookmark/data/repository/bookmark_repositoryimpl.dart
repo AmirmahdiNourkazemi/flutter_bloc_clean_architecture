@@ -47,7 +47,7 @@ class BookmarkRepositoryImpl extends BookmarkRepository {
     try {
       Country? country = await countryDao.findCountryByName(insertCountry.countryName);
       if (country != null) {
-        return const DataError('Country already exists');
+        return DataError('Country already exists');
       }
       await countryDao.insertCountry(Country(
           insertCountry.countryName, insertCountry.flag, insertCountry.code));

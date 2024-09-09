@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/data/data_source/local/database.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/data/repository/bookmark_repositoryimpl.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/domain/repository/bookmark_repository.dart';
@@ -14,6 +15,10 @@ import 'package:flutter_bloc_clean_architecture/features/feature_countries/domai
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/bloc/home_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import '../core/network/api_provider_imp.dart';
+import '../core/network/api_providers.dart';
+import '../core/network/dio_wrapper.dart';
+
 GetIt locator = GetIt.instance;
 
 setup() async {
@@ -21,6 +26,12 @@ setup() async {
 
   final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
   locator.registerSingleton<AppDatabase>(database);
+
+  /// dio
+  locator.registerSingleton<Dio>(ViolationDioWrapper.provide());
+  locator.registerSingleton<ApiProviderImp>(ApiProviderImp());
+  locator.registerSingleton<ApiProviders>(ApiProviderImp());
+
 
   ///repositories 
   locator.registerSingleton<CountryRepository>(CountryRepositoryImpl(locator()));
@@ -39,4 +50,8 @@ setup() async {
   /// bloc 
    locator.registerSingleton<HomeBloc>(HomeBloc(locator(),locator()));
    locator.registerSingleton<BookmarkBloc>(BookmarkBloc(locator(),locator(),locator(),locator()));
+
+
+
+
 }

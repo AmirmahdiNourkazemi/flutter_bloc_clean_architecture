@@ -4,3 +4,10 @@ abstract class UseCase<T , P>{
 
 
 class NoParams {}
+
+class InsertCountry {
+  String countryName;
+  String flag;
+  String code;
+InsertCountry(this.countryName,this.flag,this.code);
+}

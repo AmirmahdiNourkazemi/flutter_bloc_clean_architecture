@@ -41,8 +41,11 @@ dependencies:
   bloc: ^8.1.4
   get_it: ^7.7.0
   animated_botton_navigation: ^0.0.6
+  floor: ^1.5.0
 
 dev_dependencies:
+  floor_generator: ^1.4.2
+  build_runner: ^2.1.2
   flutter_test:
     sdk: flutter
 

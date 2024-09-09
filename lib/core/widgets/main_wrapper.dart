@@ -1,6 +1,7 @@
 import 'package:animated_botton_navigation/animated_botton_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/features/feature_bookmark/presentation/screens/bookmark_screen.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/bloc/country_status.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/bloc/home_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/features/feature_countries/presentation/screens/home_screen.dart';
@@ -18,6 +19,7 @@ class _MainWrapperState extends State<MainWrapper> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const SearchScreen(),
+    const BookMarkScreen()
     // Container(
     //   child: Center(child: const Text('text')),
     // ),
@@ -26,11 +28,10 @@ class _MainWrapperState extends State<MainWrapper> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   
   }
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       // extendBody: true,
       // extendBodyBehindAppBar: true,
@@ -46,7 +47,7 @@ class _MainWrapperState extends State<MainWrapper> {
         icons: [
           Icons.home,
           Icons.search,
-          Icons.person,
+          Icons.bookmark,
         ],
         currentIndex: _currentIndex,
         onTapChange: (index) {
